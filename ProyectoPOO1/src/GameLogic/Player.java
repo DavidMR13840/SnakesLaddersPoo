@@ -5,6 +5,7 @@
  */
 package GameLogic;
 
+
 /**
  *
  * @author David
@@ -13,11 +14,20 @@ public class Player {
     private int position;
     private String name;
     private int level;
+    private int firstGO;
     
     public Player(int pos, String pname, int lvl){
         setLevel(lvl);
         setName(pname);
         setPosition(pos);
+    }
+
+    public int getFirstGO() {
+        return firstGO;
+    }
+
+    public void setFirstGO(int firstGO) {
+        this.firstGO = firstGO;
     }
 
     public int getPosition() {
