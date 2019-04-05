@@ -5,6 +5,10 @@
  */
 package proyectopoo1;
 
+import Controller.GameController;
+import GameLogic.Game;
+import View.MainFrame;
+
 /**
  *
  * @author David
@@ -16,6 +20,10 @@ public class ProyectoPOO1 {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        MainFrame mainFrame = new MainFrame();
+        Game game = new Game();
+        GameController gameController = new GameController(mainFrame, game);
+        mainFrame.setVisible(true);
     }
     
 }

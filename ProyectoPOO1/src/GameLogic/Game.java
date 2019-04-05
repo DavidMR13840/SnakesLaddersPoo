@@ -121,6 +121,12 @@ public class Game {
         return player.getPosition() == 100;
     }
     
+    public void addPlayers(ArrayList<String> names){
+        for(String player_nameString : names){
+            addPlayer(1, player_nameString, 1);
+        }    
+    }
+    
     public void addPlayer(int pos, String name, int lvl){
         players.add(new Player(pos, name, lvl));
     }
