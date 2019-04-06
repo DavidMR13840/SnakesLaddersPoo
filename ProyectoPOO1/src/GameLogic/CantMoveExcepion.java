@@ -9,7 +9,7 @@ package GameLogic;
  *
  * @author David
  */
-class CantMoveException extends Exception {
+ class CantMoveException extends Exception {
     public CantMoveException(String msg) {
         super(msg);
     }

@@ -15,6 +15,7 @@ public class Player {
     private String name;
     private int level;
     private int firstGO;
+    int idOrder;
     
     public Player(int pos, String pname, int lvl){
         setLevel(lvl);
@@ -34,6 +35,14 @@ public class Player {
         return position;
     }
 
+    public void setidOrder(int idJugador){
+        idOrder = idJugador;
+    }
+    
+    public int getidOrder(){
+        return idOrder;
+    }
+    
     public void setPosition(int position) {
         this.position = position;
     }

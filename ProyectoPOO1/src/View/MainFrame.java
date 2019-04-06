@@ -6,10 +6,17 @@
 package View;
 
 import java.awt.CardLayout;
+import java.awt.event.ActionEvent;
 import javax.swing.JPanel;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.PlainDocument;
 
 
 /**
@@ -28,6 +35,15 @@ public class MainFrame extends javax.swing.JFrame {
         GUIboard.initializeGui();
         gameBoardPanel = (JPanel) GUIboard.getGui();
         getContentPane().add(gameBoardPanel, "card4");
+        player1_textf.setDocument(new JTextFieldLimit(10));
+        player1_textf1.setDocument(new JTextFieldLimit(10));
+        player1_textf2.setDocument(new JTextFieldLimit(10));
+        player2_textf.setDocument(new JTextFieldLimit(10));
+        player2_textf1.setDocument(new JTextFieldLimit(10));
+        player2_textf2.setDocument(new JTextFieldLimit(10));
+        player3_textf.setDocument(new JTextFieldLimit(10));
+        player3_textf1.setDocument(new JTextFieldLimit(10));
+        player4_textf.setDocument(new JTextFieldLimit(10));
         pack();
     }
 
@@ -79,16 +95,16 @@ public class MainFrame extends javax.swing.JFrame {
         newGameItem = new javax.swing.JMenuItem();
         loadGameItem = new javax.swing.JMenuItem();
         saveMenuItem = new javax.swing.JMenuItem();
-        saveAsMenuItem = new javax.swing.JMenuItem();
         exitMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.CardLayout());
 
+        menu_Panel.setBackground(java.awt.Color.darkGray);
         menu_Panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         loadGame_btn.setText("Load Game");
-        menu_Panel.add(loadGame_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 220, 100, 30));
+        menu_Panel.add(loadGame_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 190, 100, 30));
 
         newGame_btn2.setText("New Game");
         newGame_btn2.addActionListener(new java.awt.event.ActionListener() {
@@ -96,15 +112,19 @@ public class MainFrame extends javax.swing.JFrame {
                 newGame_btn2ActionPerformed(evt);
             }
         });
-        menu_Panel.add(newGame_btn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 100, 30));
+        menu_Panel.add(newGame_btn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, 100, 30));
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Snakes and ladders");
-        menu_Panel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, -1, -1));
+        menu_Panel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 80, -1, -1));
 
         getContentPane().add(menu_Panel, "card2");
 
+        newGame_panel.setBackground(java.awt.Color.darkGray);
         newGame_panel.setPreferredSize(new java.awt.Dimension(400, 279));
+
+        playerSelect_panel.setBackground(java.awt.Color.darkGray);
 
         cardsCombobox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2", "3", "4" }));
         cardsCombobox.addItemListener(new java.awt.event.ItemListener() {
@@ -113,6 +133,8 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel7.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Select the amount of players: ");
 
         startGame_btn.setText("Start Game");
@@ -121,14 +143,14 @@ public class MainFrame extends javax.swing.JFrame {
         playerSelect_panel.setLayout(playerSelect_panelLayout);
         playerSelect_panelLayout.setHorizontalGroup(
             playerSelect_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, playerSelect_panelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(playerSelect_panelLayout.createSequentialGroup()
+                .addGap(23, 23, 23)
                 .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(26, 26, 26)
                 .addComponent(cardsCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addComponent(startGame_btn)
-                .addGap(28, 28, 28))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         playerSelect_panelLayout.setVerticalGroup(
             playerSelect_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -143,11 +165,16 @@ public class MainFrame extends javax.swing.JFrame {
 
         naming_panel.setLayout(new java.awt.CardLayout());
 
+        twoPlayers_panel.setBackground(java.awt.Color.darkGray);
+
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Player 1:");
 
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Player 2:");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Choose players names");
 
         javax.swing.GroupLayout twoPlayers_panelLayout = new javax.swing.GroupLayout(twoPlayers_panel);
@@ -188,13 +215,19 @@ public class MainFrame extends javax.swing.JFrame {
 
         naming_panel.add(twoPlayers_panel, "card2");
 
+        threePlayers_panel.setBackground(java.awt.Color.darkGray);
+
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Player 3:");
 
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Player 2:");
 
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Player 1:");
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Choose players names");
 
         javax.swing.GroupLayout threePlayers_panelLayout = new javax.swing.GroupLayout(threePlayers_panel);
@@ -213,17 +246,17 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(player2_textf, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(player3_textf, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(72, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, threePlayers_panelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(threePlayers_panelLayout.createSequentialGroup()
+                .addGap(115, 115, 115)
                 .addComponent(jLabel9)
-                .addGap(109, 109, 109))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         threePlayers_panelLayout.setVerticalGroup(
             threePlayers_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, threePlayers_panelLayout.createSequentialGroup()
+            .addGroup(threePlayers_panelLayout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addGap(28, 28, 28)
                 .addGroup(threePlayers_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(player1_textf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -240,23 +273,30 @@ public class MainFrame extends javax.swing.JFrame {
 
         naming_panel.add(threePlayers_panel, "card3");
 
+        fourPlayers_panel.setBackground(java.awt.Color.darkGray);
+
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("Player 3:");
 
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setText("Player 2:");
 
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setText("Player 1:");
 
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
         jLabel13.setText("Player 4:");
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
         jLabel14.setText("Choose players names");
 
         javax.swing.GroupLayout fourPlayers_panelLayout = new javax.swing.GroupLayout(fourPlayers_panel);
         fourPlayers_panel.setLayout(fourPlayers_panelLayout);
         fourPlayers_panelLayout.setHorizontalGroup(
             fourPlayers_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, fourPlayers_panelLayout.createSequentialGroup()
-                .addContainerGap(64, Short.MAX_VALUE)
+            .addGroup(fourPlayers_panelLayout.createSequentialGroup()
+                .addGap(64, 64, 64)
                 .addGroup(fourPlayers_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel10)
@@ -273,8 +313,8 @@ public class MainFrame extends javax.swing.JFrame {
         );
         fourPlayers_panelLayout.setVerticalGroup(
             fourPlayers_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, fourPlayers_panelLayout.createSequentialGroup()
-                .addContainerGap(24, Short.MAX_VALUE)
+            .addGroup(fourPlayers_panelLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
                 .addComponent(jLabel14)
                 .addGap(18, 18, 18)
                 .addGroup(fourPlayers_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -292,7 +332,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(fourPlayers_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(player4_textf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         naming_panel.add(fourPlayers_panel, "card4");
@@ -332,11 +372,6 @@ public class MainFrame extends javax.swing.JFrame {
         saveMenuItem.setText("Save");
         fileMenu.add(saveMenuItem);
 
-        saveAsMenuItem.setMnemonic('a');
-        saveAsMenuItem.setText("Save As ...");
-        saveAsMenuItem.setDisplayedMnemonicIndex(5);
-        fileMenu.add(saveAsMenuItem);
-
         exitMenuItem.setMnemonic('x');
         exitMenuItem.setText("Exit");
         exitMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -371,6 +406,9 @@ public class MainFrame extends javax.swing.JFrame {
         gameBoardPanel.setVisible(false);
     }//GEN-LAST:event_newGame_btn2ActionPerformed
 
+    public void displayDice(int dice_value){
+        GUIboard.displayDice(dice_value);
+    }
     private void cardsComboboxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cardsComboboxItemStateChanged
         // TODO add your handling code here:
         CardLayout cl = (CardLayout)(naming_panel.getLayout());
@@ -400,6 +438,22 @@ public class MainFrame extends javax.swing.JFrame {
         startGame_btn.addActionListener(listenForStartGameBtn);
     }
     
+    public void addSave_Listener(ActionListener listenerSave){
+        saveMenuItem.addActionListener(listenerSave);
+    }
+    
+    public void addLoad_listener(ActionListener listener){
+        loadGameItem.addActionListener(listener);
+        loadGame_btn.addActionListener(listener);
+    }
+    
+    public void addGameStart_listener(ActionListener listener){
+        GUIboard.startButton.addActionListener(listener);
+    }
+    
+    public void addRollDice_listener(ActionListener listener){
+        GUIboard.rollDiceButton.addActionListener(listener);
+    }
     public void startNewGame(){
         gameBoardPanel.setVisible(true);
         menu_Panel.setVisible(false);
@@ -408,6 +462,11 @@ public class MainFrame extends javax.swing.JFrame {
     
     public void displayError_message(String message){
         JOptionPane.showMessageDialog(this, message, "ERROR", HEIGHT);
+    }
+    
+    public void setPlayersinBoardGUI(ArrayList<String> player_names){
+                GUIboard.setPlayersLabels(player_names);
+        
     }
     
     public ArrayList<String> getPlayersNames(){
@@ -482,8 +541,42 @@ public class MainFrame extends javax.swing.JFrame {
         });
     }
 
-    private TableroGUI GUIboard;
-    private javax.swing.JPanel gameBoardPanel;
+    public void disableRollDiceButton(boolean value) {
+        GUIboard.rollDiceButton.setEnabled(value);
+    }
+    
+    
+
+public class JTextFieldLimit extends PlainDocument {
+  private int limit;
+
+  JTextFieldLimit(int limit) {
+   super();
+   this.limit = limit;
+   }
+
+  public void insertString( int offset, String  str, AttributeSet attr ) throws BadLocationException {
+    if (str == null) return;
+
+    if ((getLength() + str.length()) <= limit) {
+      super.insertString(offset, str, attr);
+    }
+  }
+}
+
+    public void displayActive_pos(int pos){
+        GUIboard.displayActive_pos(pos);
+    }
+    
+    public void setActive_playerLabel(String name){
+        GUIboard.setActiveP_label(name);
+    }
+    public void disableGamestartbtn(){
+        GUIboard.disableStart();
+    }
+
+    public TableroGUI GUIboard;
+    protected javax.swing.JPanel gameBoardPanel;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cardsCombobox;
     private javax.swing.JMenuItem exitMenuItem;
@@ -521,7 +614,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextField player3_textf1;
     private javax.swing.JTextField player4_textf;
     private javax.swing.JPanel playerSelect_panel;
-    private javax.swing.JMenuItem saveAsMenuItem;
     private javax.swing.JMenuItem saveMenuItem;
     private javax.swing.JButton startGame_btn;
     private javax.swing.JPanel threePlayers_panel;
